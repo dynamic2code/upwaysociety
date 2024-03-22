@@ -4,18 +4,21 @@
     </div>
     <div  class="container">
         <div class="products">
-            <ProductComponent></ProductComponent>
-            <ProductComponent></ProductComponent>
-            <ProductComponent></ProductComponent>
-            <ProductComponent></ProductComponent>
-            <ProductComponent></ProductComponent>
-            <ProductComponent></ProductComponent>
+            <ProductComponent v-for="product in products" :key="product.id" :product="product"></ProductComponent>
         </div>
     </div>
 
 </template>
 
 <script setup>
+const runtimeConfig = useRuntimeConfig()
+const api = runtimeConfig.public.apiBase
+
+
+const { data: products } = await useFetch('https://fakestoreapi.com/products')
+// const { data: products } = await useFetch('http://localhost:1337/api/products')
+
+// console.log(products);
 </script>
 
 <style scoped>
@@ -26,7 +29,7 @@ template{
 .container{
     width: 100%;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .products{

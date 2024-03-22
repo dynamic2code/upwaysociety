@@ -4,16 +4,18 @@
             <button id="love">
                 <img src="@/assets/images/heart-line.png" alt="like">
             </button>
-            <img id="image" src="@/assets/images/VATPAVE Mens Hawaiian Flamingo Shirts Casual Short Sleeve Button Down Shirt Summer Shirts __ Trendy.jpeg" alt="">
+            <img id="image" :src="product.image" alt="">
         </div>
         <div class="details">
-            <span class="cost">Red Flamingo shirt</span>
-            <span class="cost" >Prize: 350 ksh</span>
+            <span class="cost">{{ product.title }}</span>
+            <span id="description">{{ product.description }}</span>
+            <span class="cost" >{{ product.price }}</span>
         </div>
     </div>
 </template>
 
 <script setup>
+const {product} = defineProps(['product'])
 </script>
 
 
@@ -36,7 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
 }
 #love{
     position: absolute;
@@ -47,6 +49,13 @@
     align-items: center;
     background-color: orangered;
     border-radius: 50%;
+}
+#description {
+  display: block; /* Ensure the span is displayed as a block element */
+  max-height: 60px; /* Set the maximum height for the description */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap; 
 }
 
 @media (max-width: 728px) {
