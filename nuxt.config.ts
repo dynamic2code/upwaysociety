@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     apiSecret: '123',
     // Keys within public are also exposed client-side
     public: {
-      apiBase: 'http://localhost:1337/api/'
+      apiBase: 'http://localhost:1337'
     }
   }
 });

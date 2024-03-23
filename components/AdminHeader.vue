@@ -42,7 +42,7 @@
                 <img src="@/assets/images/add-circle-line.png" alt="cart">
             </button>
 
-            <router-link to="/notification">
+            <router-link to="/adminNotification">
                 <img src="@/assets/images/notification-2-line.png" alt="notification">
             </router-link>
 
@@ -50,7 +50,7 @@
                 <img src="@/assets/images/store-2-line.png" alt="store">
             </router-link>
 
-            <router-link to="/add_blog">
+            <router-link to="/addBlog">
                 <img src="@/assets/images/sticky-note-add-line.png" alt="add blog">
             </router-link>
         </div>

@@ -5,22 +5,29 @@
                 <button>
                     <img src="@/assets/images/add-fill.png" alt="">
                 </button>
-                <span class="cost">Units: 20</span> 
+                <span class="cost">{{ product.attributes.count }}</span> 
                 <button id="love">
                     <img src="@/assets/images/subtract-line.png" alt="like">
                 </button>               
             </div>
-
-            <img id="image" src="@/assets/images/VATPAVE Mens Hawaiian Flamingo Shirts Casual Short Sleeve Button Down Shirt Summer Shirts __ Trendy.jpeg" alt="">
+            <img id="image" :src="getMediaUrl()"  alt="">
         </div>
         <div class="details">
-            <span class="cost">Red Flamingo shirt</span>
-            <span class="cost" >Prize: 350 ksh</span>
+            <span class="cost">{{ product.attributes.name }}</span>
+            <span id="description">{{ product.attributes.description }}</span>
+            <span class="cost">{{ product.attributes.price }}</span>
         </div>
     </div>
 </template>
 
 <script setup>
+const {product} = defineProps(['product'])
+// console.log(product)
+const runtimeConfig = useRuntimeConfig()
+const api = runtimeConfig.public.apiBase
+const getMediaUrl = (filename) => {
+  return `${api}${product.attributes.preview_image.data.attributes.formats.small.url}`;
+};
 </script>
 
 

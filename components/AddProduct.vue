@@ -2,29 +2,39 @@
     <div>
         <form @submit.prevent="submitForm">
         <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" placeholder="Product name"v-model="formData.name" required>
+            <label for="pname">Name:</label>
+            <input type="text" id="pname" placeholder="Product name"v-model="pname" required>
+        </div>
+
+        <div>
+            <label for="name">Description:</label>
+            <input type="text" id="description" placeholder="Product description"v-model="description" required>
         </div>
 
         <div>
             <label for="count">Count:</label>
-            <input type="number" id="count" placeholder="number of units" v-model.number="formData.count" required>            
+            <input type="number" id="count" placeholder="number of units" v-model.number="count" required>            
         </div>
 
         <div>
             <label for="price">Price:</label>
-            <input type="number" id="price" placeholder="Price per unit" v-model.number="formData.price" required>            
+            <input type="number" id="price" placeholder="Price per unit" v-model.number="price" required>            
         </div>
 
         <div>
             <label for="category">Category:</label>
-            <select id="category" v-model="formData.category" required>
+            <select id="category" v-model="category" required>
                 <option value="">Select category</option>
                 <!-- Populate options dynamically or hardcode them -->
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Children">Children</option>
             </select>            
+        </div>
+
+        <div>
+            <label for="preview_image">Preview Image:</label>
+            <input type="file" id="preview_image" multiple @change="handlePreviewImageChange">              
         </div>
 
         <div>
@@ -40,25 +50,50 @@
 <script setup>
 import { ref } from 'vue';
 
-const formData = ref({
-name: '',
-count: 0,
-price: 0,
-category: '',
-images: []
-});
 
-const submitForm = () => {
-// Submit form logic
-console.log(formData.value);
+
+// const submitForm = () => {
+// console.log(formData.value);
+// };
+
+const submitForm = async () => {
+  try {
+    const response = await fetch('http://localhost:1337/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:{
+        name: pname.value,
+        description: description.value,
+        count: count.value,
+        price: price.value,      
+        category: category.value,
+        // preview_image: formData.value.preview_image.map(file => file.name),
+        // images: formData.value.images.map(file => file.name) 
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    console.log('Product added successfully');
+  } catch (error) {
+    console.error('Error adding product:', error);
+  }
 };
 
-const handleFileChange = (event) => {
-// Handle file input change
-const files = event.target.files;
-// Store selected files in formData
-formData.value.images = Array.from(files);
-};
+// const handleFileChange = (event) => {
+// // Handle file input change
+// const files = event.target.files;
+// // Store selected files in formData
+// formData.value.images = Array.from(files);
+// };
+
+// const handlePreviewImageChange = (event) => {
+//   formData.value.preview_image = Array.from(event.target.files);
+// };
 </script>
 
 <style scoped>

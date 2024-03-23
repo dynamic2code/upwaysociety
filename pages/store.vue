@@ -4,19 +4,48 @@
     </div>
     <div  class="container">
         <div class="products">
-            <AdminProductComponent></AdminProductComponent>
-            <AdminProductComponent></AdminProductComponent>
-            <AdminProductComponent></AdminProductComponent>
-            <AdminProductComponent></AdminProductComponent>
-            <AdminProductComponent></AdminProductComponent>
-            <AdminProductComponent></AdminProductComponent>
-
+            <AdminProductComponent  v-for="product in products" :key="product.id" :product="product"></AdminProductComponent>
         </div>
     </div>
 
 </template>
 
 <script setup>
+const products = ref([])
+
+const fetchProducts = async () => {
+  try {
+    const response = await fetch('http://localhost:1337/api/products?populate=*', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+
+      // Check if the 'data' property exists in the response
+      if ('data' in responseData) {
+        const { data } = responseData;
+
+        // Update the spots ref with the processed spot data
+        products.value = data;
+
+      } else {
+        console.error('Invalid API response: Missing "data" property');
+      }
+    } else {
+      console.error('Request failed:', response.statusText);
+    }
+  } catch (error) {
+    // ... error handling
+  }
+};
+
+// console.log(products);
+
+onMounted(() => {
+    fetchProducts();
+});
 </script>
 
 <style scoped>

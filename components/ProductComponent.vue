@@ -1,21 +1,28 @@
+
 <template>
     <div class="product">
-        <div>
-            <button id="love">
-                <img src="@/assets/images/heart-line.png" alt="like">
-            </button>
-            <img id="image" :src="product.image" alt="">
-        </div>
-        <div class="details">
-            <span class="cost">{{ product.title }}</span>
-            <span id="description">{{ product.description }}</span>
-            <span class="cost" >{{ product.price }}</span>
-        </div>
+      <div>
+        <button id="love">
+          <img src="@/assets/images/heart-line.png" alt="like">
+        </button>
+        <img id="image" :src="getMediaUrl()"  alt="">
+      </div>
+      <div class="details">
+        <span class="cost">{{ product.attributes.name }}</span>
+        <span id="description">{{ product.attributes.description }}</span>
+        <span class="cost">{{ product.attributes.price }}</span>
+      </div>
     </div>
 </template>
 
 <script setup>
 const {product} = defineProps(['product'])
+// console.log(product)
+const runtimeConfig = useRuntimeConfig()
+const api = runtimeConfig.public.apiBase
+const getMediaUrl = (filename) => {
+  return `${api}${product.attributes.preview_image.data.attributes.formats.small.url}`;
+};
 </script>
 
 
