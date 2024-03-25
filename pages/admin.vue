@@ -1,4 +1,5 @@
 <template>
+    <p>   {{ foo }}</p>
     <div>
         <AdminHeader></AdminHeader>
     </div>
@@ -13,6 +14,7 @@
 </template>
 
 <script setup>
+const foo = user()
 import AdminHeader from '../components/AdminHeader.vue';
 
 </script>

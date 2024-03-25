@@ -3,12 +3,12 @@
         <form @submit.prevent="submitForm">
         <div>
             <label for="pname">Name:</label>
-            <input type="text" id="pname" placeholder="Product name"v-model="pname" required>
+            <input type="text" id="pname" placeholder="Product name" v-model="pname" required>
         </div>
 
         <div>
             <label for="name">Description:</label>
-            <input type="text" id="description" placeholder="Product description"v-model="description" required>
+            <input type="text" id="description" placeholder="Product description" v-model="description" required>
         </div>
 
         <div>
@@ -47,31 +47,39 @@
     </div>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue';
 
-
-
-// const submitForm = () => {
-// console.log(formData.value);
-// };
+const pname = ref('');
+const description = ref('');
+const count = ref(0);
+const price = ref(0);
+const category = ref('');
+const previewImages = ref([]);
+const productImages = ref([]);
 
 const submitForm = async () => {
   try {
+    const requestData = {
+      data: {
+        name: pname.value,
+        description: description.value,
+        count: count.value,
+        price: price.value,
+        category: category.value,
+        preview_image: previewImages.value.map(file => file.name),
+        images: productImages.value.map(file => file.name) 
+      }
+    };
+
+    console.log(requestData)
+
     const response = await fetch('http://localhost:1337/api/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body:{
-        name: pname.value,
-        description: description.value,
-        count: count.value,
-        price: price.value,      
-        category: category.value,
-        // preview_image: formData.value.preview_image.map(file => file.name),
-        // images: formData.value.images.map(file => file.name) 
-      }
+      body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
@@ -84,16 +92,82 @@ const submitForm = async () => {
   }
 };
 
-// const handleFileChange = (event) => {
-// // Handle file input change
-// const files = event.target.files;
-// // Store selected files in formData
-// formData.value.images = Array.from(files);
-// };
+const handlePreviewImageChange = (event) => {
+  previewImages.value = Array.from(event.target.files);
+};
 
-// const handlePreviewImageChange = (event) => {
-//   formData.value.preview_image = Array.from(event.target.files);
-// };
+const handleFileChange = (event) => {
+  productImages.value = Array.from(event.target.files);
+};
+</script> -->
+
+<script setup>
+import { ref } from 'vue';
+
+const pname = ref('');
+const description = ref('');
+const count = ref(0);
+const price = ref(0);
+const category = ref('');
+const previewImages = ref([]);
+const productImages = ref([]);
+
+const submitForm = async () => {
+    try {
+        const requestData = {
+            name: pname.value,
+            description: description.value,
+            count: count.value,
+            price: price.value,
+            category: category.value
+        };
+
+        const formData = new FormData();
+        formData.append('data', JSON.stringify(requestData));
+
+        // Append preview images
+        for (const image of previewImages.value) {
+            formData.append('preview_image', image);
+        }
+
+        // Append product images
+        for (const image of productImages.value) {
+            formData.append('images', image);
+        }
+
+        const responseMainData = await fetch('http://localhost:1337/api/products', {
+            method: 'POST',
+            body: JSON.stringify(requestData),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+        
+        const responseData = await responseMainData.json();
+        console.log('Response for main data:', responseData);
+
+        const responseImages = await fetch('http://localhost:1337/upload/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!responseImages.ok) {
+            throw new Error(`HTTP error! status: ${responseImages.status}`);
+        }
+
+        console.log('Images uploaded successfully');
+    } catch (error) {
+        console.error('Error adding product:', error);
+    }
+};
+
+const handlePreviewImageChange = (event) => {
+    previewImages.value = Array.from(event.target.files);
+};
+
+const handleFileChange = (event) => {
+    productImages.value = Array.from(event.target.files);
+};
 </script>
 
 <style scoped>

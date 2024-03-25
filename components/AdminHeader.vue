@@ -22,8 +22,8 @@
             <router-link to="/blogs">
                 <span>Blogs</span>
             </router-link>
-            <router-link to="/about">
-                <span>About us</span>
+            <router-link to="/adminLogIn">
+                <span>log in</span>
             </router-link>
         </div>
     </div>
@@ -85,6 +85,7 @@ const toggleHidden = () => {
 <style scoped>
 .container{
     height: auto;
+    flex-direction: row;
     /* background-color: aqua; */
     justify-content: space-between;
     align-items: center;
@@ -92,6 +93,7 @@ const toggleHidden = () => {
 .container2{
     border-radius: 20px;
     background-color: orangered;
+    display: flex;
 }
 .container2 >*{
     margin: 10px;

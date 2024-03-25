@@ -3,6 +3,8 @@ body{
     margin: 0;
     padding:0;
     font-family: 'Inter', sans-serif;
+    color: black;
+    background-color: white;
 }
 button{
     all: unset;
@@ -29,6 +31,7 @@ a{
 .title{
     font-size: 4vw;
     font-weight: 700;
+    text-align: center;
 }
 .cost{
     font-size: 1.5vw;

@@ -25,6 +25,14 @@
             <router-link to="/about">
                 <span>About us</span>
             </router-link>
+            
+            <router-link to="/logIn">
+                <span>log in</span>
+            </router-link>
+
+            <router-link to="/signUp">
+                <span>sign up</span>
+            </router-link>
         </div>
     </div>
     <div class="body">
@@ -69,10 +77,10 @@ const toggleHidden = () => {
 .container2{
     border-radius: 20px;
     background-color: orangered;
+    display: flex;
 }
 .container2 >*{
     margin: 10px;
-
 }
 #controls{
     display: flex;
