@@ -2,8 +2,8 @@
     <div>
         <HomeHeaderComponents/>
     </div>
-    <div  class="container">
-        <div class="products">
+    <div  class="body">
+        <div class="container">
             <ProductComponent v-for="product in products" :key="product.id" :product="product"></ProductComponent>
         </div>
     </div>
@@ -60,21 +60,22 @@ template{
     padding: 0;
 }
 .container{
-    width: 100%;
     display: flex;
     /* justify-content: center; */
+    /* align-items: center; */
+    /* background-color: black; */
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.products{
-    margin-top: 20px;
-    width: 95%;
-    display: flex;
-    flex-wrap: wrap;
-    /* background-color: brown; */
-}
-.products > * {
+.container >* {
     flex: 0 0 auto; 
-    margin: auto;
+    margin: 20px;
     margin-top: 10px;
+}
+@media (max-width: 728px) {
+    .container >*{
+      margin: 10px;
+    }
 }
 </style>

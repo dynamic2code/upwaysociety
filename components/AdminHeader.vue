@@ -30,29 +30,29 @@
     <div class="body">
         <div class="container2">
          
-            <router-link to="/admin">
+            <NuxtLink to="/admin">
                 <img src="@/assets/images/truck-line.png" alt="orders">
-            </router-link>
+            </NuxtLink>
 
-            <router-link to="/reports">
+            <NuxtLink to="/reports">
                 <img src="@/assets/images/line-chart-fill.png" alt="home">
-            </router-link>
+            </NuxtLink>
 
             <button @click="toggleAdd">
                 <img src="@/assets/images/add-circle-line.png" alt="cart">
             </button>
 
-            <router-link to="/adminNotification">
+            <NuxtLink to="/adminNotification">
                 <img src="@/assets/images/notification-2-line.png" alt="notification">
-            </router-link>
+            </NuxtLink>
 
-            <router-link to="/store">
+            <NuxtLink to="/store">
                 <img src="@/assets/images/store-2-line.png" alt="store">
-            </router-link>
+            </NuxtLink>
 
-            <router-link to="/addBlog">
+            <NuxtLink to="/addBlog">
                 <img src="@/assets/images/sticky-note-add-line.png" alt="add blog">
-            </router-link>
+            </NuxtLink>
         </div>
     </div>
 

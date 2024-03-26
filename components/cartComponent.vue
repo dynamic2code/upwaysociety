@@ -5,6 +5,7 @@
         </div>
         <div id="details">
             <span class="cost">Red Flamingo shirt</span>
+            <span>details</span>
             <span class="cost">Prize: 350 ksh</span>
         </div>
         <div id="action">

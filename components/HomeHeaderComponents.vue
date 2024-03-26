@@ -19,36 +19,36 @@
             </form>
         </div>
         <div id="hidden" v-if="menuIsVisible">
-            <router-link to="/blogs">
+            <NuxtLink to="/blogs">
                 <span>Blogs</span>
-            </router-link>
-            <router-link to="/about">
+            </NuxtLink>
+            <NuxtLink to="/about">
                 <span>About us</span>
-            </router-link>
+            </NuxtLink>
             
-            <router-link to="/logIn">
+            <NuxtLink to="/logIn">
                 <span>log in</span>
-            </router-link>
+            </NuxtLink>
 
-            <router-link to="/signUp">
+            <NuxtLink to="/signUp">
                 <span>sign up</span>
-            </router-link>
+            </NuxtLink>
         </div>
     </div>
     <div class="body">
         <div class="container2">
-            <router-link to="/">
+            <NuxtLink to="/">
                 <img src="@/assets/images/home-2-line.png" alt="home">
-            </router-link>
-            <router-link to="/cart">
+            </NuxtLink>
+            <NuxtLink to="/cart">
                 <img src="@/assets/images/shopping-cart-line.png" alt="cart">
-            </router-link>
-            <router-link to="/notification">
+            </NuxtLink>
+            <NuxtLink to="/notification">
                 <img src="@/assets/images/notification-2-line.png" alt="notification">
-            </router-link>
-            <router-link to="/myOrders">
+            </NuxtLink>
+            <NuxtLink to="/myOrders">
                 <img src="@/assets/images/truck-line.png" alt="myOrders">
-            </router-link>
+            </NuxtLink>
         </div>
     </div>
 </template>

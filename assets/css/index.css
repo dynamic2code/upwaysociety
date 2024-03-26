@@ -29,12 +29,12 @@ a{
 }
 
 .title{
-    font-size: 4vw;
+    font-size: 3rem;
     font-weight: 700;
     text-align: center;
 }
 .cost{
-    font-size: 1.5vw;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 .normal{
@@ -43,12 +43,12 @@ a{
 }
 
 @media (max-width: 728px) {
-    .cost{
+    /* .cost{
         font-size: 2.5vw;
         font-weight: 600;
     }
     .title{
         font-size: 8vw;
         font-weight: 700;
-    }
+    } */
 }

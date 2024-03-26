@@ -15,6 +15,10 @@
 </template>
 
 <script setup>
+import { useUserStore } from '../stores/counter.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
@@ -22,20 +26,25 @@ const password = ref('');
 
 const signup = async () => {
   try {
-    const response = await fetch('http://localhost:1337/api/auth/local', {
+    const response = await fetch('http://localhost:1337/auth/local', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: email.value,
+        identifier: email.value,
         password: password.value,
       }),
     });
     if (response.ok) {
       const responseData = await response.json();
-      console.log('User profile', responseData.user);
-      console.log('User token', responseData.jwt);
+      // console.log('User profile', responseData.user);
+      // console.log('User token', responseData.jwt);
+      const userStore = useUserStore();
+      userStore.setUser( responseData.user);
+      useUserStore().setTokens(responseData.jwt); 
+      useUserStore().setAuth()
+      router.push('/admin');
     } else {
       console.error('Failed to fetch authentication token:', response.statusText);
       // Handle the failure scenario, e.g., display an error message

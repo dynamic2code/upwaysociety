@@ -2,7 +2,7 @@
 <template>
     <div class="product">
       <div>
-        <button id="love">
+        <button @click="addToCart" id="love">
           <img src="@/assets/images/heart-line.png" alt="like">
         </button>
         <img id="image" :src="getMediaUrl()"  alt="">
@@ -12,16 +12,65 @@
         <span id="description">{{ product.attributes.description }}</span>
         <span class="cost">{{ product.attributes.price }}</span>
       </div>
+      <UNotifications />
     </div>
+    
 </template>
 
 <script setup>
+import { toastInjectionKey } from 'vue-toastification';
+import { useUserStore } from '../stores/counter.js';
+
+const toast = useToast()
 const {product} = defineProps(['product'])
-// console.log(product)
+const userStore = useUserStore();
+
 const runtimeConfig = useRuntimeConfig()
 const api = runtimeConfig.public.apiBase
 const getMediaUrl = (filename) => {
   return `${api}${product.attributes.preview_image.data.attributes.formats.small.url}`;
+};
+
+const addToCart = async () => {
+  if (userStore.user !== null && userStore.user !== undefined) {
+    const token = userStore.token;
+    const userId =  userStore.user.id;    
+    try {
+      const response = await fetch('http://localhost:1337/api/carts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:`Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          // user: userId,
+          // product: product.attributes.id,
+          // quantity: 1
+          product: {
+            id: product.id,
+          },
+          quantity: 1,
+          cart: {
+            connect: userId, 
+          },
+        }),
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+      } else {
+        console.error('Failed to add to cart', response.statusText);
+        // Handle the failure scenario, e.g., display an error message
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }    
+  }else{
+    toast.add({
+      title: 'This action requires authentication',
+      description: "Log in if you have an account with us or sign up  for free.",
+    })
+  }
+
 };
 </script>
 
@@ -32,10 +81,11 @@ const getMediaUrl = (filename) => {
     display: flex;
     flex-direction: column;
     padding: 1%;
-    background-color: white;
-    width: 26%;
+    /* background-color: white; */
+    /* background-color: blue; */
+    width: 30%;
     height: auto;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 #image{
     display: block;
@@ -68,6 +118,7 @@ const getMediaUrl = (filename) => {
 @media (max-width: 728px) {
     .product {
         width: 45%;
+        /* background-color: brown; */
     }
 }
 </style>
