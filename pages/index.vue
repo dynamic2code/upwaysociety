@@ -70,7 +70,7 @@ template{
 
 .container >* {
     flex: 0 0 auto; 
-    margin: 20px;
+    margin: 10px;
     margin-top: 10px;
 }
 @media (max-width: 728px) {

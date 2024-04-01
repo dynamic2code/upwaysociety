@@ -1,6 +1,6 @@
 
 <template>
-    <div class="product">
+    <NuxtLink :to="`/product/${product.id}`" class="product">
       <div>
         <button @click="addToCart" id="love">
           <img src="@/assets/images/heart-line.png" alt="like">
@@ -13,7 +13,7 @@
         <span class="cost">{{ product.attributes.price }}</span>
       </div>
       <UNotifications />
-    </div>
+    </NuxtLink>
     
 </template>
 
@@ -34,7 +34,7 @@ const getMediaUrl = (filename) => {
 const addToCart = async () => {
   if (userStore.user !== null && userStore.user !== undefined) {
     const token = userStore.token;
-    const userId =  userStore.user.id;    
+    const userId=  userStore.user.id;    
     try {
       const response = await fetch('http://localhost:1337/api/carts', {
         method: 'POST',
@@ -43,26 +43,31 @@ const addToCart = async () => {
           Authorization:`Bearer ${token}`,
         },
         body: JSON.stringify({
-          // user: userId,
-          // product: product.attributes.id,
-          // quantity: 1
-          product: {
-            id: product.id,
-          },
+          user: userId,
+          product: product.id,
           quantity: 1,
-          cart: {
-            connect: userId, 
-          },
         }),
       });
+      console.log('this',typeof userId,typeof product.id);
       if (response.ok) {
         const responseData = await response.json();
+        toast.add({
+          title: 'added to cart',
+          description: "Adding to your cart was successful",
+        })       
       } else {
-        console.error('Failed to add to cart', response.statusText);
-        // Handle the failure scenario, e.g., display an error message
+        console.error('Failed to add to cart', response.message);
+        toast.add({
+          title: 'Failed to add to cart',
+          description: "Something went wrong when adding to your cart",
+        })
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
+      toast.add({
+        title: 'Failed to add to cart',
+        description: "Something went wrong when adding to your cart",
+      })
     }    
   }else{
     toast.add({
@@ -83,7 +88,7 @@ const addToCart = async () => {
     padding: 1%;
     /* background-color: white; */
     /* background-color: blue; */
-    width: 30%;
+    width: 29%;
     height: auto;
     /* border-radius: 20px; */
 }
