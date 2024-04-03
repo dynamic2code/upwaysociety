@@ -16,5 +16,6 @@ export default defineNuxtConfig({
     public: {
       apiBase: 'http://localhost:1337'
     }
-  }
+  },
+  
 });

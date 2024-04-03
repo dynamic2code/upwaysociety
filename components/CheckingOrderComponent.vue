@@ -1,18 +1,18 @@
 <template>
     <div class="order">
         <div id="image">
-            <img id="image" :src="getMediaUrl()"  alt=""> 
+            <img src="@/assets/images/VATPAVE Mens Hawaiian Flamingo Shirts Casual Short Sleeve Button Down Shirt Summer Shirts __ Trendy.jpeg" alt="order image">
         </div>
         <div id="details">
-            <span class="cost">{{product.name}}</span>
-            <span>{{ product.details }}</span>
-            <span class="cost">{{ product.price }}</span>
+            <span class="cost">Red Flamingo shirt</span>
+            <span>details</span>
+            <span class="cost">Prize: 350 ksh</span>
         </div>
         <div id="action">
             <button id="tick">
 
             </button>
-            <button @click="removeCart">
+            <button>
                 <img src="@/assets/images/delete-bin-line.png" alt="bin">
             </button>
             
@@ -22,23 +22,7 @@
 </template>
 
 <script setup>
-const {product} = defineProps(['product'])
 
-const runtimeConfig = useRuntimeConfig()
-const api = runtimeConfig.public.apiBase
-// console.log(api + product.previewImage)
-const getMediaUrl = (filename) => {
-  return `${api}${product.previewImage}`;
-};
-// interactions with cart store
-
-import { useCartStore } from '../stores/carts.js';
-
-const cartStore = useCartStore();
-
-const  removeCart = () =>{
-  cartStore.removeFromCart(product.id);
-}
 </script>
 
 <style scoped>

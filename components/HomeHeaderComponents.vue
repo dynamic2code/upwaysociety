@@ -40,15 +40,26 @@
             <NuxtLink to="/">
                 <img src="@/assets/images/home-2-line.png" alt="home">
             </NuxtLink>
-            <NuxtLink to="/cart">
-                <img src="@/assets/images/shopping-cart-line.png" alt="cart">
-            </NuxtLink>
-            <NuxtLink to="/notification">
-                <img src="@/assets/images/notification-2-line.png" alt="notification">
-            </NuxtLink>
-            <NuxtLink to="/myOrders">
-                <img src="@/assets/images/truck-line.png" alt="myOrders">
-            </NuxtLink>
+
+            <UChip :text="products.length" size="2xl">
+                <NuxtLink to="/cart">
+                    <img src="@/assets/images/shopping-cart-line.png" alt="cart">
+                </NuxtLink>
+            </UChip>
+
+
+            <UChip text="3" size="2xl">
+                <NuxtLink to="/notification">
+                    <img src="@/assets/images/notification-2-line.png" alt="notification">
+                </NuxtLink>
+            </UChip>
+
+            <UChip text="3" size="2xl">
+                <NuxtLink to="/myOrders">
+                    <img src="@/assets/images/truck-line.png" alt="myOrders">
+                </NuxtLink>                
+            </UChip>
+
         </div>
     </div>
 </template>
@@ -65,6 +76,13 @@ const menuIsVisible = ref(false);
 const toggleHidden = () => {
     menuIsVisible.value = !menuIsVisible.value;
 };
+
+import { useCartStore } from '../stores/carts.js';
+
+const cartStore = useCartStore();
+
+// Define a computed property to get products from the cart store
+const products = cartStore.products;
 </script>
 
 <style scoped>
@@ -103,6 +121,7 @@ img{
     padding: 10px;
     right: 0;
     top: 42px;
+    z-index: 5;
 }
 #hidden >*{
     padding: 10px;

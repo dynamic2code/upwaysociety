@@ -1,50 +1,35 @@
 <template>
     <div>
-        <HomeHeaderComponents/>
+        <AdminHeader></AdminHeader>
     </div>
-    <div  class="container">
-        <div v-for="product in products">
-            <cartComponent :product="product"></cartComponent>
+    <form class="container">
+        <div class="products">
+            <CheckingOrderComponent></CheckingOrderComponent>
         </div>
-        <button class="cost" @click="toggleAdd">CheckOut</button>
-    </div>
-    <div id="add" v-if="addIsVisible">
-        <PaymentPortal></PaymentPortal>
-    </div>
+        <button class="cost" @click="toggleAdd">Complete order</button>
+    </form>
 </template>
 
 <script setup lang="ts">
 const runtimeConfig = useRuntimeConfig()
 
-import { useCartStore } from '../stores/carts.js';
-
-const cartStore = useCartStore();
-
-// Define a computed property to get products from the cart store
-const products = cartStore.products;
-
-const addIsVisible = ref(false);
-
-const toggleAdd = () => {
-    addIsVisible.value = !addIsVisible.value;
-};
 </script>
 
 <style scoped>
 .container{
     width: 100%;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-}
-/* form{
-    display: flex;
+    /* justify-content: center;
     flex-direction: column;
     /* justify-content: center; 
+    align-items: center; */
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
     align-items: center;
-} */
+}
 button{
     width: 20%;
     height: auto;

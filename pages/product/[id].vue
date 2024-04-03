@@ -5,8 +5,9 @@
     <div class="body">
            
         <div class="container">
+            <!-- <p>should be here:{{ product.attributes.preview_image}}</p> -->
             <div>               
-                <img src="@/assets/images/VATPAVE Mens Hawaiian Flamingo Shirts Casual Short Sleeve Button Down Shirt Summer Shirts __ Trendy.jpeg" alt="">
+                <!-- <img :src="getMediaUrl()" alt=""> -->
             </div>
 
             <div class="side_show">
@@ -20,15 +21,33 @@
 
 <script setup>
 const route = useRoute()
-// console.log(route.params)
+// console.log(route.params)const 
+const runtimeConfig = useRuntimeConfig()
+const api = runtimeConfig.public.apiBase
+
 const product = ref([])
+
+console.log(product)
+
+// const getMediaUrl = (filename) => {
+//   return `${api}${product.attributes.preview_image.data.attributes.formats.small.url}`;
+// };
+
+
+
 
 const fetchProduct = async () => {
   try {
-    const response = await fetch(`http://localhost:1337/api/products/${route.params.id}`);
+    const response = await fetch(`http://localhost:1337/api/products/${route.params.id}?populate=*`);
     if (response.ok) {
-      const data = await response.json();
-      product.value = data; // Assuming the response is an array of products
+        const responseData = await response.json();
+        if ('data' in responseData) {
+            const { data } = responseData;
+
+            product.value = data;
+        } else {
+            console.error('Invalid API response: Missing "data" property');
+        }
     } else {
       console.error('Failed to fetch product:', response.statusText);
     }

@@ -7,9 +7,9 @@
             <span>To location</span>
             <span>order date</span>
         </div>
-        <div id="action">
+        <NuxtLink to="/order/id" id="action">
             <img src="@/assets/images/shopping-cart-line.png" alt="get order">
-        </div>
+        </NuxtLink>
     </div>
 
 </template>

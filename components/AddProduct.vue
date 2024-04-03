@@ -47,60 +47,6 @@
     </div>
 </template>
 
-<!-- <script setup>
-import { ref } from 'vue';
-
-const pname = ref('');
-const description = ref('');
-const count = ref(0);
-const price = ref(0);
-const category = ref('');
-const previewImages = ref([]);
-const productImages = ref([]);
-
-const submitForm = async () => {
-  try {
-    const requestData = {
-      data: {
-        name: pname.value,
-        description: description.value,
-        count: count.value,
-        price: price.value,
-        category: category.value,
-        preview_image: previewImages.value.map(file => file.name),
-        images: productImages.value.map(file => file.name) 
-      }
-    };
-
-    console.log(requestData)
-
-    const response = await fetch('http://localhost:1337/api/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestData),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    console.log('Product added successfully');
-  } catch (error) {
-    console.error('Error adding product:', error);
-  }
-};
-
-const handlePreviewImageChange = (event) => {
-  previewImages.value = Array.from(event.target.files);
-};
-
-const handleFileChange = (event) => {
-  productImages.value = Array.from(event.target.files);
-};
-</script> -->
-
 <script setup>
 import { ref } from 'vue';
 
