@@ -1,4 +1,5 @@
 <template>
+    <p>{{ product }}</p>
     <div class="order">
         <div id="image">
             <img id="image" :src="getMediaUrl()"  alt=""> 
@@ -15,7 +16,6 @@
             <button @click="removeCart">
                 <img src="@/assets/images/delete-bin-line.png" alt="bin">
             </button>
-            
         </div>
     </div>
 
@@ -43,11 +43,12 @@ const  removeCart = () =>{
 
 <style scoped>
 .order {
-    width: 100%;
+    width: 80vw;
     height: auto;
     padding: 2%;
     display: flex;
     align-items: center;
+    /* background-color: blueviolet; */
 }
 .order >* {
     margin: 1%;
@@ -87,5 +88,10 @@ const  removeCart = () =>{
     width: 40px;
     cursor:cell;
     border: 3px solid black;
+}
+@media (max-width: 728px) {
+    .order{
+      width: 90vw;
+    }
 }
 </style>

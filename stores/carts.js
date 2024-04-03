@@ -26,7 +26,6 @@ export const useCartStore = defineStore('cart', {
         quantity: 1,
         previewImage: product.attributes.preview_image.data.attributes.formats.small.url,
         isSelected: false,
-
       });
     },
 

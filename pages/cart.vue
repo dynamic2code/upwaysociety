@@ -2,12 +2,15 @@
     <div>
         <HomeHeaderComponents/>
     </div>
-    <div  class="container">
-        <div v-for="product in products">
-            <cartComponent :product="product"></cartComponent>
+    <div class="body">
+        <div  class="container">
+            <div v-for="product in products">
+                <cartComponent :product="product"></cartComponent>
+            </div>
+            <button class="cost" @click="toggleAdd">CheckOut</button>
         </div>
-        <button class="cost" @click="toggleAdd">CheckOut</button>
     </div>
+
     <div id="add" v-if="addIsVisible">
         <PaymentPortal></PaymentPortal>
     </div>
@@ -34,10 +37,10 @@ const toggleAdd = () => {
 .container{
     width: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
+    /* background-color: brown; */
 }
 /* form{
     display: flex;
@@ -46,7 +49,7 @@ const toggleAdd = () => {
     align-items: center;
 } */
 button{
-    width: 20%;
+    width: auto;
     height: auto;
     padding: 2%;
     border-radius: 30px;
