@@ -13,7 +13,7 @@
       <div class="details">
         <span class="cost">{{ product.attributes.name }}</span>
         <span id="description">{{ product.attributes.description }}</span>
-        <span class="cost">{{ product.attributes.price }}</span>
+        <span class="cost">Ksh: {{ product.attributes.prize }}</span>
       </div>
       <UNotifications />
     </div>
@@ -44,54 +44,6 @@ const  addCart = ()=>{
   })
 }
 
-// const addToCart = async () => {
-//   if (userStore.user !== null && userStore.user !== undefined) {
-//     const token = userStore.token;
-//     const userId=  userStore.user.id;    
-//     try {
-//       const response = await fetch('http://localhost:1337/api/carts', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization:`Bearer ${token}`,
-//         },
-//         body: JSON.stringify({
-//             data: {
-//               user: userId,
-//               product: product.id,
-//               quantity: 1,
-//             }
-//           }),
-//         });
-//       console.log('this',typeof userId,typeof product.id);
-//       if (response.ok) {
-//         const responseData = await response.json();
-//         toast.add({
-//           title: 'added to cart',
-//           description: "Adding to your cart was successful",
-//         })       
-//       } else {
-//         console.error('Failed to add to cart', response.message);
-//         toast.add({
-//           title: 'Failed to add to cart',
-//           description: "Something went wrong when adding to your cart",
-//         })
-//       }
-//     } catch (error) {
-//       console.error('Error adding to cart:', error);
-//       toast.add({
-//         title: 'Failed to add to cart',
-//         description: "Something went wrong when adding to your cart",
-//       })
-//     }    
-//   }else{
-//     toast.add({
-//       title: 'This action requires authentication',
-//       description: "Log in if you have an account with us or sign up  for free.",
-//     })
-//   }
-
-// };
 </script>
 
 
@@ -100,12 +52,14 @@ const  addCart = ()=>{
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 1%;
+    padding: 2%;
     /* background-color: white; */
     /* background-color: blue; */
     width: 29%;
     height: auto;
-    /* border-radius: 20px; */
+    border: 1px solid black;
+    border-radius: 20px;
+    justify-content: space-between;
 }
 #image{
     display: block;
@@ -124,7 +78,7 @@ const  addCart = ()=>{
     padding: 2%;
     justify-content: center;
     align-items: center;
-    background-color: orangered;
+    /* background-color: orangered; */
     border-radius: 50%;
 }
 #description {

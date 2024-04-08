@@ -55,11 +55,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-template{
-    margin: 0;
-    padding: 0;
-}
 .container{
+  width: 100%;
     display: flex;
     /* justify-content: center; */
     /* align-items: center; */
@@ -68,9 +65,10 @@ template{
     margin-top: 20px;
 }
 
+
 .container >* {
     flex: 0 0 auto; 
-    margin: 10px;
+    margin: 25px;
     margin-top: 10px;
 }
 @media (max-width: 728px) {

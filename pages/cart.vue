@@ -3,20 +3,32 @@
         <HomeHeaderComponents/>
     </div>
     <div class="body">
-        <div  class="container">
+        <div  class="container">   
             <div v-for="product in products">
                 <cartComponent :product="product"></cartComponent>
             </div>
+            <span class="cost">Total: {{ total_cost }}</span>
             <button class="cost" @click="toggleAdd">CheckOut</button>
         </div>
     </div>
 
     <div id="add" v-if="addIsVisible">
-        <PaymentPortal></PaymentPortal>
+        <div id="close">
+            <button  @click="toggleAdd">
+                <img src="@/assets/images/close-circle-fill.png" alt="">                
+            </button>
+
+        </div>
+        <div id="portal" >
+            <PaymentPortal></PaymentPortal>            
+        </div>
+
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue';
+
 const runtimeConfig = useRuntimeConfig()
 
 import { useCartStore } from '../stores/carts.js';
@@ -24,7 +36,15 @@ import { useCartStore } from '../stores/carts.js';
 const cartStore = useCartStore();
 
 // Define a computed property to get products from the cart store
-const products = cartStore.products;
+
+const products = computed(() => {
+    return cartStore.products;
+});
+
+
+const total_cost = computed(() => {
+    return cartStore.totalPriceOfSelectedProducts;
+});
 
 const addIsVisible = ref(false);
 
@@ -71,14 +91,21 @@ button{
     margin-top: 10px;
 }
 #add{
-    position: absolute;
-    /* background-color: black; */
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    backdrop-filter: blur(8px); 
     width: 100%;
-    z-index: 5;
     height: 100%;
-    top: 30px;
+    z-index: 5;
+    top: 0;
+}
+#close{
+    background-color: orangered;
+}
+#portal{
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 90%;
 }
 </style>
