@@ -9,6 +9,7 @@
             </div>
             <span class="cost">Total: {{ total_cost }}</span>
             <button class="cost" @click="toggleAdd">CheckOut</button>
+            <UNotifications />
         </div>
     </div>
 
@@ -29,12 +30,15 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+const toast = useToast()
 const runtimeConfig = useRuntimeConfig()
 
 import { useCartStore } from '../stores/carts.js';
 
-const cartStore = useCartStore();
+import { useUserStore } from '../stores/counter';
 
+const cartStore = useCartStore();
+const userStore = useUserStore();
 // Define a computed property to get products from the cart store
 
 const products = computed(() => {
@@ -49,7 +53,14 @@ const total_cost = computed(() => {
 const addIsVisible = ref(false);
 
 const toggleAdd = () => {
-    addIsVisible.value = !addIsVisible.value;
+    if (userStore.user) {
+        addIsVisible.value = !addIsVisible.value;
+    } else {
+        toast.add({
+            title: 'User Not Logged In',
+            description: 'Please log in to proceed.',
+        });
+    }
 };
 </script>
 

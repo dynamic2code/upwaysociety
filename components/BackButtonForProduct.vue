@@ -4,6 +4,7 @@
             <button @click="$router.back">
                 <img src="@/assets/images/arrow-left-line.png" alt="Back">
             </button>
+            <span class="cost">{{ product }}</span>
             <button @click="addToCart" id="love">
                 <img src="@/assets/images/heart-line.png" alt="like">
             </button> 
@@ -13,6 +14,7 @@
   </template>
   
   <script setup>
+  const {product} = defineProps(['product'])
   </script>
   
   <style scoped>

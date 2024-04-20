@@ -24,6 +24,7 @@
             <button id="tick"  @click="select()">
                 <UChip v-if="product.isSelected" size="2xl"></UChip>
                 <img class="select_to_order" src="@/assets/images/truck-line.png" alt="">
+                <span>Select to Order</span>
             </button>                
             
             <button @click="removeCart">

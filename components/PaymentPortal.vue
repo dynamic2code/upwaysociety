@@ -30,7 +30,6 @@ const total_cost = computed(() => {
     return cartStore.totalPriceOfSelectedProducts;
 });
 
-
 const userStore = useUserStore();
 
 const token = userStore.token;
@@ -39,9 +38,7 @@ const userId=  userStore.user.id;
 const location = ref('');
 const phone_number = ref('');
 const total = total_cost
-const oder = cartStore.selectedProductIds;
-
-console.log(oder);
+const oder = cartStore.selectedProducts;
 
 const submitForm = async () => {
     try {
@@ -56,7 +53,7 @@ const submitForm = async () => {
             body: JSON.stringify({
                 data: {
                 user: userId,
-                products: oder,
+                // products: oder,
                 Location: location.value,
                 phone: phoneNumberString,
                 total_cost: total.value,
@@ -64,8 +61,31 @@ const submitForm = async () => {
             }),
         });
         
-        const responseData = await responseMainData.json();
-        console.log('Response for main data:', responseData);
+        if  (responseMainData.ok){
+            const responseData = await responseMainData.json();
+            console.log('Response for main data:', responseData);
+            const orderId = responseData.data.id;    
+            console.log("oder id",orderId);
+            console.log("oder",oder);
+            for (const product of oder){
+                const responseOrderItems = await fetch('http://localhost:1337/api/oder-items?populate=*', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization:`Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        data:{
+                            "product": product.id,
+                            "my_order": orderId,
+                            "quantity": product.quantity,
+                        }
+                    }),
+                });                 
+            }
+        
+        }
+
 
     } catch (error) {
         console.error('Error placing  oder:', error);

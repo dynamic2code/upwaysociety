@@ -18,9 +18,12 @@ export const useCartStore = defineStore('cart', {
     },
 
     // Create a list of product IDs for selected products
-    selectedProductIds(state) {
-      const selectedProducts = state.products.filter(product => product.isSelected);
-      return selectedProducts.map(product => product.id);
+    // selectedProducts(state) {
+    //   const selectedProducts = state.products.filter(product => product.isSelected);
+    //   return selectedProducts.map(product => product.id);
+    // }
+    selectedProducts(state) {
+      return state.products.filter(product => product.isSelected);
     }
   },
 
